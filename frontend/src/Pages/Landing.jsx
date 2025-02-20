@@ -1,26 +1,33 @@
-import { Link } from "react-router-dom";
-import { CiMobile2 } from "react-icons/ci";
-import { MdOutlineSignalWifiStatusbarConnectedNoInternet4 } from "react-icons/md";
-import { FaLightbulb } from "react-icons/fa";
-import { FaCalendarPlus } from "react-icons/fa";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
+import JoinMeeting from "../Components/JoinMeeting";
+import { useState } from "react";
 function Landing() {
+  const [showJoinMeeting, setShowJoinMeeting] = useState(false);
+
+  const handleJoinMeetingClick = () =>{
+    setShowJoinMeeting(true)
+  }
   return (
+
     <>
       <div className="  w-screen ">
         <div className=" h-screen  w-screen ">
-          <Header />
+          <Header onJoinMeetingClick={handleJoinMeetingClick} />
+          {showJoinMeeting &&(
+             <JoinMeeting/>
+          )}
+         
           <div className="  my-8 ml-6">
-            <h1 className=" italic text-4xl">
-              Compare with us and Find a better deal{" "}
+            <h1 className=" font-bold text-4xl">
+             We help People to Connect Visually all over the world
             </h1>
           </div>
-          <div className=" shadow-sm rounded-xl bg-gray-50  h-1/2 w-4/5 m-0 m-auto ">
-           
+          <div className=" w-full flex justify-center bg-slate-50">
+           <img className=" rounded-xl " src="/banner.webp" alt="" />
           </div>
           <div>
-            <div className="  my-8 ml-6">
+            <div className="  my-8 ml-6"> 
               <h1 className=" italic text-4xl">A little Bit about us</h1>
             </div>
             
@@ -52,6 +59,6 @@ function Landing() {
         </div>
       </div>
     </>
-  );
+  )
 }
 export default Landing;
