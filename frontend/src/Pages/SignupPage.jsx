@@ -14,10 +14,8 @@ export default function SignupPage() {
 
   return (
 
-    <div className=' w-full flex flex-row' >
-      <div className=' w-1/2 border '>
-
-      </div>
+    <div className=' w-full flex flex-row' >a
+      
       <div className=' w-1/2 border'>
         
     
