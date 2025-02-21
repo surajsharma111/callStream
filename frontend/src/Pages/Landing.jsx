@@ -5,60 +5,57 @@ import { useState } from "react";
 function Landing() {
   const [showJoinMeeting, setShowJoinMeeting] = useState(false);
 
-  const handleJoinMeetingClick = () =>{
-    setShowJoinMeeting(true)
-  }
+  const handleJoinMeetingClick = () => {
+    setShowJoinMeeting(true);
+  };
   return (
-
     <>
       <div className="  w-screen ">
         <div className=" h-screen  w-screen ">
           <Header onJoinMeetingClick={handleJoinMeetingClick} />
-          {showJoinMeeting &&(
-             <JoinMeeting/>
-          )}
-         
+          {showJoinMeeting && <JoinMeeting />}
+
           <div className="  my-8 ml-6">
             <h1 className=" font-bold text-4xl">
-             We help People to Connect Visually all over the world
+              We help People to Connect Visually all over the world
             </h1>
           </div>
           <div className=" w-full flex justify-center bg-slate-50">
-           <img className=" rounded-xl " src="/banner.webp" alt="" />
+            <img className=" rounded-xl " src="/banner.webp" alt="" />
           </div>
           <div>
-            <div className="  my-8 ml-6"> 
+            <div className="  my-8 ml-6">
               <h1 className=" italic text-4xl">A little Bit about us</h1>
             </div>
-            
-            <p  className="w-[95%] m-auto italic mt-6 mb-6">
-              Welcome to Truelocalbiz, your trusted platform for comparing the
-              best deals on SIM cards, insurance, energy plans, and much more.
-              We are dedicated to helping individuals and businesses make
-              informed decisions by providing transparent, up-to-date
-              comparisons across a wide range of services. At Truelocalbiz, we
-              believe that finding the right plan shouldn’t be a hassle. Our
-              mission is to simplify the decision-making process by offering an
-              easy-to-use interface, tailored recommendations, and unbiased
-              insights. Whether you’re looking for a cost-effective energy plan,
-              reliable insurance coverage, or the best mobile SIM deal, we’ve
-              got you covered. We pride ourselves on being a one-stop solution
-              for all your service needs. By partnering with trusted providers,
-              we ensure that you have access to only the best options in the
-              market. With Truelocalbiz, you can compare, choose, and save—all
-              in one place. Join the thousands who trust us to make smarter
-              choices. Discover why Truelocalbiz is the go-to comparison website
-              for savvy consumers and businesses alike. Your search for the
-              perfect deal starts here.
+        <div className=" w-full flex justify-center ">
+        <p className=" font-bold flex w-[95%] my-4 ">
+              At CallStream, we’re passionate about connecting people through
+              seamless, secure, and high-quality video communication. Our
+              platform was created with the vision to revolutionize how people
+              interact online—whether for work, learning, or personal
+              connections. We provide an all-in-one video chat solution that
+              integrates cutting-edge technologies like Multi-Factor
+              Authentication (MFA) and robust cybersecurity measures, ensuring
+              your communications are safe, encrypted, and reliable. Our team is
+              dedicated to building an intuitive, easy-to-use platform that
+              empowers individuals and organizations to communicate effortlessly
+              in a world that’s becoming more connected every day. At
+              CallStream, we are committed to continuous innovation and
+              delivering the best possible experience to our users, whether
+              you're hosting a meeting, conducting an interview, or simply
+              catching up with friends. Join us and experience video
+              communication without limits.
             </p>
+        </div>
+          
           </div>
 
-          <div className=" w-[95%] m-auto  ">
+          <div className="  m-auto  ">
             <Footer />
           </div>
         </div>
       </div>
     </>
-  )
+  );
 }
 export default Landing;
