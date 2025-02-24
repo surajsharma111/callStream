@@ -3,7 +3,7 @@ import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-
+import cors from 'cors'
 // Import Routes
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
@@ -15,6 +15,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+app.use(cors())
 
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
