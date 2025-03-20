@@ -1,6 +1,7 @@
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import { useState } from "react";
+import SignUp from "./Signup.jsx";
 function Landing() {
 
   
@@ -9,7 +10,7 @@ function Landing() {
       <div className="  w-screen ">
         <div className=" h-screen  w-screen ">
           <Header  />
-          
+          <SignUp/>
 
           <div className="  my-8 ml-6">
             <h1 className=" font-bold text-4xl">
