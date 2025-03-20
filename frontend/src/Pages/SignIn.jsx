@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { FaVideo } from "react-icons/fa6";
-
+import { signIn } from "../action/auth.js";
 function SignIn() {
   const {
     register,
@@ -10,8 +10,10 @@ function SignIn() {
     isSubmitting,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async(data) => {
+    const response = await signIn(data)
+    const message = await response.json()
+    console.log(message)
   };
 
   return (
