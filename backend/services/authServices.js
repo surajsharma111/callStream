@@ -25,6 +25,7 @@ export async function createEmailOtp(data) {
   delete data.phone;
   delete data.verifyPassword;
   const code = String(Math.ceil(Math.random() * 1000000));
+  console.log(code)
   const expiryAt = addMinutes(new Date(), 10);
   const newEmail = await prisma.emailConfirmation.create({
     data: {
@@ -41,8 +42,8 @@ export async function verifyOtp(data) {
     const existingClient = await prisma.emailConfirmation.findFirst({
       where: { email: data.email },
     });
-    console.log(existingClient.code);
-    console.log(data.code);
+    
+    
    
    return data.code === existingClient.code;
   } catch (error) {
