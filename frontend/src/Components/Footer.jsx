@@ -9,12 +9,7 @@ const navigation = {
         { name: 'Our People', href: '/our-people' },
        
     ],
-    compare: [
-      { name: 'Mobile Plans', href: '/mobiles' },
-      { name: 'Internet', href: '/internets' },
-      { name: 'Electricity', href: '/energys' },
-      { name: 'Insurance', href: '/insurance' }
-    ],
+    
     contact: [
       { name: 'Get in touch', href: '/contacts' },
       { name: 'patner with Us', href: '/' },
@@ -34,17 +29,17 @@ const navigation = {
             <div className="space-y-8">
 
               <p className="text-sm leading-6 text-white">
-              Suite 31, Level 3, 10 Bridge Street, Granville 2142 <br />
-ABN: 71 672 859 460 <br />
-info@truelocalbiz.com.au <br />
-0404935613 / 0404815801 <br />
+              Level 2, Suite 5B & 6A 1/17 Elsie St, Burwood NSW 2134 <br />
+ABN: 767677888 <br />
+info@callstream.com.au <br />
+0450713247 / 0450713247 <br />
               </p>
             
             </div>
             <div className="mt-16 grid grid-cols-1 gap-8 xl:col-span-2 xl:mt-0">
               <div className="md:grid md:grid-cols-3 md:gap-8">
                 <div>
-                  <h3 className="text-sm font-semibold leading-6 text-white ">ABOUT TrueLocalBiz</h3>
+                  <h3 className="text-sm font-semibold leading-6 text-white ">ABOUT CallStream</h3>
                   <ul role="list" className="mt-6 space-y-4">
                     {navigation.solutions.map((item) => (
                       <li key={item.name}>
@@ -55,18 +50,7 @@ info@truelocalbiz.com.au <br />
                     ))}
                   </ul>
                 </div>
-                <div className="mt-10 md:mt-0">
-                  <h3 className="text-sm font-semibold leading-6 text-white">Compare </h3>
-                  <ul role="list" className="mt-6 space-y-4">
-                    {navigation.compare.map((item) => (
-                      <li key={item.name}>
-                        <a href={item.href} className="text-sm leading-6 text-white hover:text-white">
-                          {item.name}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+            
                 <div className="mt-10 md:mt-0">
                   <h3 className="text-sm font-semibold leading-6 text-white">EXPERTISE</h3>
                   <ul role="list" className="mt-6 space-y-4">
@@ -84,7 +68,7 @@ info@truelocalbiz.com.au <br />
             </div>
           </div>
           <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
-            <p className="text-xs leading-5 text-white">&copy; {(new Date()).getFullYear()} TrueLocalBiz Pty Ltd, All rights reserved.</p>
+            <p className="text-xs leading-5 text-white">&copy; {(new Date()).getFullYear()} CallStream Pty Ltd, All rights reserved.</p>
           </div>
         </div>
       </footer>
