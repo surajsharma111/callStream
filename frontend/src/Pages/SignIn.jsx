@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { FaVideo } from "react-icons/fa6";
 
-function SignUp() {
+function SignIn() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
     isSubmitting,
   } = useForm();
@@ -57,7 +57,9 @@ function SignUp() {
             <div className="mt-2">
               <input
                 id="password"
-                {...register("password", { required: "Password is required" })}
+                {...register("password", {
+                  required: "Password is required",
+                })}
                 type="password"
                 className="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 hover:ring-2 hover:ring-golden"
               />
@@ -68,66 +70,28 @@ function SignUp() {
               </span>
             )}
           </div>
-
-          {/* Confirm Password Input */}
-          <div>
-            <label
-              htmlFor="confirmPassword"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Confirm Password
-            </label>
-            <div className="mt-2">
-              <input
-                id="confirmPassword"
-                {...register("confirmPassword", {
-                  required: "Confirm Password is required",
-                  validate: (value) =>
-                    value === watch("password") || "Passwords do not match",
-                })}
-                type="password"
-                className="block w-full rounded-md border-1 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 hover:ring-2 hover:ring-golden"
-              />
-            </div>
-            {errors.confirmPassword && (
-              <span className="text-red-500 text-sm">
-                {errors.confirmPassword.message}
-              </span>
-            )}
-          </div>
-
-          <div className=" mt-4 flex flex-row justify-between">
-            <input
-              id="code"
-              placeholder="Code"
-              type="text"
-              className="w-52 rounded-md border p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder-gray-400 
-                focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 hover:ring-2 hover:ring-golden"
-            />
-            {errors.code && (
-              <span className="text-red-500 text-sm">
-                {errors.code.message}
-              </span>
-            )}
-
-            <button
-              type="submit"
-              className=" p-2 bg-indigo-600 text-white rounded-md"
-              disabled={isSubmitting}
-            >
-              Send Code
-            </button>
-          </div>
-
           <div className="mt-4">
-            <button
-              type="submit"
-              className="block w-full  p-2 bg-indigo-600 text-white rounded-md"
-              disabled={isSubmitting}
+          <button
+            type="submit"
+            className="block w-full  p-2 bg-indigo-600 text-white rounded-md"
+            disabled={isSubmitting}
+          >
+            Sign In
+          </button>
+        </div>
+
+        </div>
+
+       
+
+        <div className=" mt-4  w-full flex items-center justify-center">
+          <div className="text-sm leading-6">
+            <Link
+              to="/admin/forgot-password"
+              className="font-semibold text-golden hover:text-underline"
             >
-              Sign Up
-            </button>
-           
+              Forgot password?
+            </Link>
           </div>
         </div>
       </form>
@@ -135,4 +99,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default SignIn;

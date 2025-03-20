@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaVideo } from "react-icons/fa6";
+import SignIn from "../Pages/SignIn";
 
 // eslint-disable-next-line react/prop-types
 export default function Header({ onJoinMeetingClick }) {
@@ -13,11 +14,16 @@ export default function Header({ onJoinMeetingClick }) {
       
 
         <div className="  flex flex-row gap-12 justify-between px-4 items-center mr-4 ">
-
-          <button onClick={onJoinMeetingClick} className=" px-4  py-2 rounded-xl flex items-center justify-center font-bold text-white bg-blue">Join a meeting</button>
+      <Link to='/join-meeting'>
+      <button onClick={onJoinMeetingClick} className=" px-4  py-2 rounded-xl flex items-center justify-center font-bold text-white bg-blue">Join a meeting</button>
+      </Link>
           <button  className=" px-4  py-2 rounded-xl flex items-center justify-center font-bold text-white bg-blue">Host a meeting</button>
+          <Link  to='/sign-in'>
           <button className=" px-4  py-2 rounded-xl flex items-center justify-center font-bold text-white bg-blue">Sign-in</button>
+          </Link>
+          <Link  to='/sign-up'>
           <button className=" px-4 py-2 rounded-xl flex items-center justify-center font-bold text-white bg-blue">Sign-up</button>
+          </Link>
         </div>
       </div>
     </div>
