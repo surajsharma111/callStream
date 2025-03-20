@@ -2,6 +2,7 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import JoinMeeting from "../Components/JoinMeeting";
 import { useState } from "react";
+import VideoChat from "../Components/VideoChat";
 function Landing() {
   const [showJoinMeeting, setShowJoinMeeting] = useState(false);
 
@@ -13,6 +14,7 @@ function Landing() {
       <div className="  w-screen ">
         <div className=" h-screen  w-screen ">
           <Header onJoinMeetingClick={handleJoinMeetingClick} />
+          <VideoChat/>
           {showJoinMeeting && <JoinMeeting />}
 
           <div className="  my-8 ml-6">

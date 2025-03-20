@@ -1,13 +1,11 @@
-import { MdOutlineCancel } from "react-icons/md";
-import meeting from "../action/meeting";
-import { useState } from "react";
-import React, { useEffect, useRef } from "react";
+// eslint-disable-next-line no-unused-vars
+import React, { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 
 const socket = io("http://localhost:5000"); // Connect to signaling server
 
-function JoinMeeting() {
-    const [roomId, setRoomId] = useState("");
+const VideoChat = () => {
+  const [roomId, setRoomId] = useState("");
   const [joined, setJoined] = useState(false);
   const localVideoRef = useRef(null);
   const remoteVideoRef = useRef(null);
@@ -69,37 +67,26 @@ function JoinMeeting() {
     startCall();
   };
 
-    
+  return (
+    <div>
+      <h2>WebRTC Video Chat</h2>
+      {!joined && (
+        <>
+          <input
+            type="text"
+            placeholder="Enter Room ID"
+            value={roomId}
+            onChange={(e) => setRoomId(e.target.value)}
+          />
+          <button onClick={joinRoom}>Join Room</button>
+        </>
+      )}
+      <div>
+        <video ref={localVideoRef} autoPlay playsInline muted></video>
+        <video ref={remoteVideoRef} autoPlay playsInline></video>
+      </div>
+    </div>
+  );
+};
 
-
-    return (
-       
-        <div className="  rounded-2xl absolute bg-white left-[25%] w-1/2 h-1/2 top-[25%] flex flex-col justify-center items-center gap-4 p-4">
-            <button className="absolute right-0 top-0">
-                <MdOutlineCancel className="w-12 h-12" />
-            </button>
-            <form className=" w-full justify-center items-center gap-8  flex flex-col" onSubmit={}>
-            {!joined && (
-            <>
-              <input
-                type="text"
-                placeholder="Enter Room ID"
-                value={roomId}
-                onChange={(e) => setRoomId(e.target.value)}
-              />
-             
-            </>
-          )}
-                <input
-                    onClick={joinRoom}
-                    type="submit"
-                    name="Join"
-                    value="Join"
-                    className="px-4 py-2 rounded-xl bg-blue text-white font-bold w-1/2"
-                />
-            </form>
-        </div>
-    );
-}
-
-export default JoinMeeting;
+export default VideoChat;

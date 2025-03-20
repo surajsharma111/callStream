@@ -15,6 +15,7 @@ export default function Header({ onJoinMeetingClick }) {
         <div className="  flex flex-row gap-12 justify-between px-4 items-center mr-4 ">
 
           <button onClick={onJoinMeetingClick} className=" px-4  py-2 rounded-xl flex items-center justify-center font-bold text-white bg-blue">Join a meeting</button>
+          <button  className=" px-4  py-2 rounded-xl flex items-center justify-center font-bold text-white bg-blue">Host a meeting</button>
           <button className=" px-4  py-2 rounded-xl flex items-center justify-center font-bold text-white bg-blue">Sign-in</button>
           <button className=" px-4 py-2 rounded-xl flex items-center justify-center font-bold text-white bg-blue">Sign-up</button>
         </div>
