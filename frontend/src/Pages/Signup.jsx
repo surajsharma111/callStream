@@ -1,18 +1,79 @@
 import { useForm } from "react-hook-form";
 import { FaVideo } from "react-icons/fa6";
+import { sendOtp } from "../action/auth";
+import { registerUser } from "../action/auth";
+import { useState, useMemo, useEffect } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
+import sendCodeSchema from '../ValidationSchema/sendCode.js'
+import signUpSchema from '../ValidationSchema/signUp.js'
 
 function SignUp() {
+  const [action, setAction] = useState("");
+  const navigate = useNavigate(); // Initialize the navigate function
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const validationSchema = useMemo(() => {
+    return action === "SendCode" ? sendCodeSchema : signUpSchema;
+  }, [action]);
+
+
   const {
     register,
     handleSubmit,
     watch,
+    setError,
     formState: { errors },
     isSubmitting,
-  } = useForm();
+  } = useForm({resolver: yupResolver(validationSchema)});
+  
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+
+
+  const onSubmit = async (data) => {
+    if (action === "SendCode") {
+  
+      try {
+        const response = await sendOtp(data); // Ensure sendOtp is a function that makes an API call
+        if(response.ok){
+          const {success} = await response.json(); // Await the JSON response
+          console.log({success})
+          setSuccessMessage("OTP sent successfully, Check your Email");
+
+        }
+  
+       
+        
+      } catch (error) {
+        console.error("Network error:", error);
+      }
+    } else if (action === "signUp") {
+      console.log(data)
+      try {
+        const response = await registerUser(data); // Ensure registerUser is a function that makes an API call
+        if(response.ok){
+          const {success} = await response.json(); // Await the JSON response
+          console.log({success})
+          setSuccessMessage("Successfully Signed in");
+          navigate('/dashboard')
+          alert(setSuccessMessage)
+
+
+        }
+      } catch (error) {
+        console.error("Error occurred during registration:", error.message || error); // Log the actual error message
+      }
+     
+    }
+  }
+  useEffect(() => {
+    if (successMessage) {
+      alert(successMessage); 
+
+    }
+  }, [successMessage])
+
+   
 
   return (
     <div>
@@ -99,6 +160,8 @@ function SignUp() {
           <div className=" mt-4 flex flex-row justify-between">
             <input
               id="code"
+              {...register("code", { required: "code is required" })}
+
               placeholder="Code"
               type="text"
               className="w-52 rounded-md border p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder-gray-400 
@@ -114,6 +177,7 @@ function SignUp() {
               type="submit"
               className=" p-2 bg-indigo-600 text-white rounded-md"
               disabled={isSubmitting}
+              onClick={() => setAction("SendCode")}
             >
               Send Code
             </button>
@@ -124,6 +188,9 @@ function SignUp() {
               type="submit"
               className="block w-full  p-2 bg-indigo-600 text-white rounded-md"
               disabled={isSubmitting}
+              onClick={() => setAction("signUp")}
+
+
             >
               Sign Up
             </button>
@@ -134,5 +201,5 @@ function SignUp() {
     </div>
   );
 }
+export default SignUp
 
-export default SignUp;

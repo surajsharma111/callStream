@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 export async function registerUser(data) {
   try {
-    delete data.verifyPassword;
+    delete data.confirmPassword;
     delete data.code;
     data.password = await bcrypt.hash(data.password, 10);
     const newUser = await prisma.user.create({
@@ -23,7 +23,7 @@ export async function registerUser(data) {
 export async function createEmailOtp(data) {
   delete data.password;
   delete data.phone;
-  delete data.verifyPassword;
+  delete data.confirmPassword;
   const code = String(Math.ceil(Math.random() * 1000000));
   console.log(code)
   const expiryAt = addMinutes(new Date(), 10);
@@ -43,10 +43,12 @@ export async function verifyOtp(data) {
       where: { email: data.email },
     });
     
+    console.log(typeof data.code, data.code);
+    console.log(typeof existingClient.code, existingClient.code);
     
    
-   return data.code === existingClient.code;
-  } catch (error) {
+    return String(data.code) === String(existingClient.code);
+} catch (error) {
     throw new Error(error);
   }
 }
@@ -65,7 +67,6 @@ export async function createToken(id) {
     {
       id: existingClient.id,
       email: existingClient.email,
-      phone: existingClient.phone,
     },
     process.env.TOKEN_SECRECT_KEY
   );

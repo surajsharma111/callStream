@@ -2,30 +2,55 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { FaVideo } from "react-icons/fa6";
 import { signIn } from "../action/auth.js";
+import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
+
+import schema from "../ValidationSchema/signIn.js";
+
 function SignIn() {
+  const [responseMessage, setResponseMessage] = useState("");
+  const resolver = yupResolver(schema)
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    isSubmitting,
-  } = useForm();
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm(resolver);
 
-  const onSubmit = async(data) => {
-    const response = await signIn(data)
-    const message = await response.json()
-    console.log(message)
+  const onSubmit = async (data) => {
+    
+      const response = await signIn(data);
+      console.log(response)
+      if(response.ok){
+        const {success} = await response.json();
+        console.log(success)
+        setResponseMessage(success.message);  // Optionally set the success message
+        navigate('/dashboard')
+      }else{
+        const {error} = await response.json
+        console.log(error)
+        setError("email", { message: error.message || 'Email or Password is incorrect' });
+
+      }
+      
+     
   };
 
   return (
     <div>
       <form
-        className=" space-y-6 w-8/12 m-auto mt-12"
+        className="space-y-6 w-8/12 m-auto mt-12"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className=" w-1/2 m-auto">
-          <h1 className="   flex flex-row items-center justify-center gap-2 font-bold text-blue text-2xl">
+        <div className="w-1/2 m-auto">
+          <h1 className="flex flex-row items-center justify-center gap-2 font-bold text-blue text-2xl">
             CallStream <FaVideo />
           </h1>
+
+          {/* Email Input */}
           <div>
             <label
               htmlFor="email"
@@ -33,7 +58,7 @@ function SignIn() {
             >
               Email address
             </label>
-            <div className=" mt-2">
+            <div className="mt-2">
               <input
                 id="email"
                 {...register("email", { required: "Email is required" })}
@@ -42,9 +67,7 @@ function SignIn() {
               />
             </div>
             {errors.email && (
-              <span className="text-red-500 text-sm">
-                {errors.email.message}
-              </span>
+              <span className="text-red-500 text-sm">{errors.email.message}</span>
             )}
           </div>
 
@@ -59,34 +82,29 @@ function SignIn() {
             <div className="mt-2">
               <input
                 id="password"
-                {...register("password", {
-                  required: "Password is required",
-                })}
+                {...register("password", { required: "Password is required" })}
                 type="password"
                 className="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 hover:ring-2 hover:ring-golden"
               />
             </div>
             {errors.password && (
-              <span className="text-red-500 text-sm">
-                {errors.password.message}
-              </span>
+              <span className="text-red-500 text-sm">{errors.password.message}</span>
             )}
           </div>
+
           <div className="mt-4">
-          <button
-            type="submit"
-            className="block w-full  p-2 bg-indigo-600 text-white rounded-md"
-            disabled={isSubmitting}
-          >
-            Sign In
-          </button>
+            <button
+              type="submit"
+              className="block w-full p-2 bg-indigo-600 text-white rounded-md"
+              disabled={isSubmitting}
+            >
+              Sign In
+            </button>
+          </div>
         </div>
 
-        </div>
-
-       
-
-        <div className=" mt-4  w-full flex items-center justify-center">
+        {/* Forgot Password Link */}
+        <div className="mt-4 w-full flex items-center justify-center">
           <div className="text-sm leading-6">
             <Link
               to="/admin/forgot-password"
@@ -96,6 +114,11 @@ function SignIn() {
             </Link>
           </div>
         </div>
+
+        {/* Response Message */}
+        {responseMessage && (
+          <div className="mt-4 text-center text-green-500">{responseMessage}</div>
+        )}
       </form>
     </div>
   );

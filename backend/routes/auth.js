@@ -18,7 +18,9 @@ router.post("/sign-up/send-otp", async function (req, res, next) {
     }
     if (message.length > 0) {
       return res.status(400).json({ error: { messages: message } });
+      
     }
+ 
     await authServices.createEmailOtp(userData);
 
     res.status(201).json({ message: "Otp is sent to your email Sucessfully, Check Your email " });
@@ -35,6 +37,7 @@ router.post("/sign-up/send-otp", async function (req, res, next) {
 });
 router.post("/sign-up/verify-otp", async function (req, res, next) {
     const userData = req.body
+    console.log(userData)
     const existingUserWithEmail = await prisma.emailConfirmation.findFirst({ where: { email: userData.email }});
         if(!existingUserWithEmail) {
       return res.status(404).json({error: {messages: [`Email ${userData.email} is not registered!`]}})
