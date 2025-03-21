@@ -3,7 +3,7 @@ import { FaVideo } from "react-icons/fa6";
 import SignIn from "../Pages/SignIn";
 
 // eslint-disable-next-line react/prop-types
-export default function Header({ onJoinMeetingClick }) {
+export default function Header() {
   return (
     <div>
       <div className="  w-screen flex flex-row justify-between items-center p-4">
@@ -15,7 +15,7 @@ export default function Header({ onJoinMeetingClick }) {
         <div className="  flex flex-row gap-12 justify-between px-4 items-center mr-4 ">
           <Link to="/join-meeting">
             <button
-              onClick={onJoinMeetingClick}
+            
               className=" px-4  py-2 rounded-xl flex items-center justify-center font-bold text-white bg-blue"
             >
               Join a meeting

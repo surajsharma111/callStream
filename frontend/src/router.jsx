@@ -3,6 +3,8 @@ import Landing from "./Pages/Landing";
 import SignUp from "./Pages/Signup";
 import SignIn from "./Pages/SignIn";
 import JoinMeeting from "./Components/JoinMeeting";
+import Dashboard from "./Pages/Dashboard";
+
 
 
 
@@ -10,6 +12,10 @@ const router = createBrowserRouter([
     {
       path: "/",
       element: <Landing />
+    },
+    {
+      path: '/dashboard',
+      element: <Dashboard/>
     },
     {
       path:"/sign-up",
