@@ -2,16 +2,17 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { FaVideo } from "react-icons/fa6";
 import { signIn } from "../action/auth.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 
 import schema from "../ValidationSchema/signIn.js";
 
 function SignIn() {
-  const [responseMessage, setResponseMessage] = useState("");
   const resolver = yupResolver(schema)
   const navigate = useNavigate()
+  const [successMessage, setSuccessMessage] = useState('');
+
 
   const {
     register,
@@ -23,21 +24,26 @@ function SignIn() {
   const onSubmit = async (data) => {
     
       const response = await signIn(data);
-      console.log(response)
+      
       if(response.ok){
-        const {success} = await response.json();
-        console.log(success)
-        setResponseMessage(success.message);  // Optionally set the success message
+        const {success} = await response.json(); // Await the JSON response
+        console.log({success})
+        setSuccessMessage("You have successfully signed-in");
         navigate('/dashboard')
-      }else{
-        const {error} = await response.json
-        console.log(error)
-        setError("email", { message: error.message || 'Email or Password is incorrect' });
+      
 
       }
+     
+    
       
      
-  };
+  }
+  useEffect(() => {
+    if (successMessage) {
+      alert(successMessage); 
+
+    }
+  }, [successMessage])
 
   return (
     <div>
@@ -116,8 +122,8 @@ function SignIn() {
         </div>
 
         {/* Response Message */}
-        {responseMessage && (
-          <div className="mt-4 text-center text-green-500">{responseMessage}</div>
+        {successMessage && (
+          <div className="mt-4 text-center text-green-500">{successMessage}</div>
         )}
       </form>
     </div>
