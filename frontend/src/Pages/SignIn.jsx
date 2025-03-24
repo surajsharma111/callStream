@@ -113,7 +113,7 @@ function SignIn() {
         <div className="mt-4 w-full flex items-center justify-center">
           <div className="text-sm leading-6">
             <Link
-              to="/admin/forgot-password"
+              to="/forgot-password"
               className="font-semibold text-golden hover:text-underline"
             >
               Forgot password?

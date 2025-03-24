@@ -32,7 +32,7 @@ export async function  sendResetPasswordToken(data) {
         to: data.email,
         from: process.env.FROM_EMAIL, 
         subject: 'Reset Password Notification',
-        template_id: "d-12c44c526ba047a89fb0914c87a2289a",
+        template_id: "d-4488fb339c9d48d5b889bfe651ad0078",
         dynamic_template_data: data
       }
      await sgMail.send(msg);

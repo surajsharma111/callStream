@@ -39,4 +39,26 @@ export async function registerUser(data) {
     })
 return response
 }
-
+export async function forgotPassword(data) {
+    const url = `${API_ENDPOINT}/auth/forgot-password`;
+    const response = await fetch(url, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    return response;
+  }
+   async function resetPassword(data) {
+    const url = `${API_ENDPOINT}/auth/reset-password`;
+    const response = await fetch(url, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    return response;
+  }
+  export default resetPassword

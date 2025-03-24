@@ -2,6 +2,8 @@ import { Prisma, PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { addMinutes } from "date-fns";
 import { sendOTP } from "./sendEmail.js";
+import { v4 as uuidv4 } from "uuid";
+import { addHours } from "date-fns";
 
 const prisma = new PrismaClient();
 
@@ -89,9 +91,8 @@ export async function userResetPassword(data) {
       data: {
         password,
         passwordResetToken: null,
-        passwordResetExpiry: null,
-        passwordResetExpiry: null,
-        passwordResetExpiry: null,
+        passwordResetExpiry: null
+       
       },
     });
   } catch (error) {

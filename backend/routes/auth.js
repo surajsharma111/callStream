@@ -2,6 +2,7 @@ import express from "express";
 import * as authServices from "../services/authServices.js";
 import { sendOTP, sendResetPasswordToken } from "../services/sendEmail.js";
 import { Prisma, PrismaClient } from "@prisma/client";
+import {  isBefore } from 'date-fns';
 
 var router = express.Router();
 const prisma = new PrismaClient()
@@ -87,17 +88,61 @@ router.post("/forgot-password", async function (req, res, next) {
         },
       });
     }
-    const updateData = await authServices.setResetPasswordToken(
+    const updatedData = await authServices.setResetPasswordToken(
       existingUserWithEmail.id
     )
     await sendResetPasswordToken({
-      email: updateData.email,
+      email: updatedData.email,
+      url: `${process.env.APP_URL}/reset-password?token=${updatedData.passwordResetToken}&email=${updatedData.email}`,
       
     })
+    return res.status(302).json({ success: true });
+
 
   } catch (error) {
-    
+    console.log(error);
+    res.status(500).json({
+      error: {
+        messages: ["Something went wrong. Please try after a while!"],
+      },
+    });
   }
 })
+router.post("/reset-password", async function (req, res, next) {
+    try {
+      const userData = req.body;
+      const existingUser = await authServices.getOneUser({ email: userData.email });
+      if (!existingUser) {
+        return res.status(404).json({
+          error: {
+            messages: ["We can't find a user with that email address."],
+          },
+        });
+      }
+  
+      if (
+        existingUser.passwordResetToken !== userData.passwordResetToken ||
+        isBefore(new Date(existingUser.passwordResetExpiry), new Date())
+      ) {
+        return res.status(302).json({
+          error: { messages: ["This password reset token is invalid."] },
+        });
+      }
+  
+      await authServices.userResetPassword({
+        id: existingUser.id,
+        password: userData.password,
+      });
+  
+      return res.status(200).json({ success: true });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        error: {
+          messages: ["Something went wrong. Please try after a while!"],
+        },
+      });
+    }
+  });
 
 export default router;

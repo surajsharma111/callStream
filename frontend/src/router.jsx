@@ -4,6 +4,8 @@ import SignUp from "./Pages/Signup";
 import SignIn from "./Pages/SignIn";
 import JoinMeeting from "./Components/JoinMeeting";
 import Dashboard from "./Pages/Dashboard";
+import ForgotPassword from "./Pages/ForgotPassword";
+import ResetPassword from "./Pages/ResetPassword";
 
 
 
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
     {
       path: '/join-meeting',
       element: <JoinMeeting/>
+    },
+    {
+      path: '/forgot-password',
+      element: <ForgotPassword/>
+    },
+    {
+      path: '/reset-password',
+      element: <ResetPassword/>
     }
     
   ]);
