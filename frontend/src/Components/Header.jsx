@@ -21,9 +21,13 @@ export default function Header() {
               Join a meeting
             </button>
           </Link>
+          <Link to='/host-meeting'>
           <button className=" px-4  py-2 rounded-xl flex items-center justify-center font-bold text-white bg-blue">
             Host a meeting
           </button>
+          </Link>
+          
+
           <Link to="/sign-in">
             <button className=" px-4  py-2 rounded-xl flex items-center justify-center font-bold text-white bg-blue">
               Sign-in

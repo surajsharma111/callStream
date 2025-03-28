@@ -6,6 +6,7 @@ import JoinMeeting from "./Components/JoinMeeting";
 import Dashboard from "./Pages/Dashboard";
 import ForgotPassword from "./Pages/ForgotPassword";
 import ResetPassword from "./Pages/ResetPassword";
+import HostMeeting from "./Components/HostMeeting";
 
 
 
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
     {
       path: '/join-meeting',
       element: <JoinMeeting/>
+    },
+    {
+      path: '/host-meeting',
+      element: <HostMeeting/>
     },
     {
       path: '/forgot-password',
