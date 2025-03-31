@@ -8,6 +8,12 @@ import {
   StreamVideoClient,
   useCallStateHooks,
 } from "@stream-io/video-react-sdk";
+import {
+  CancelCallButton,
+  SpeakingWhileMutedNotification,
+  ToggleAudioPublishingButton,
+  ToggleVideoPublishingButton,
+} from "@stream-io/video-react-sdk";
 
 import { ParticipantView } from "@stream-io/video-react-sdk";
 import PropTypes from "prop-types";
@@ -40,9 +46,14 @@ const MyUILayout = () => {
   return (
     <StreamTheme>
       <SpeakerLayout participantsBarPosition="bottom" />
-    
+    <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 flex items-center gap-4 bg-black bg-opacity-80 p-3 rounded-lg w-[90%] max-w-[600px]">
+    <ToggleAudioPublishingButton />
+    <ToggleVideoPublishingButton />
+    <CancelCallButton />
+  </div>
+  <SpeakingWhileMutedNotification />
         <CallControls />
-    
+      
     </StreamTheme>
   );
 };
