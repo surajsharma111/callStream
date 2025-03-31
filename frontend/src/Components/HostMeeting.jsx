@@ -46,25 +46,28 @@ const MyUILayout = () => {
   return (
     <StreamTheme>
       <SpeakerLayout participantsBarPosition="bottom" />
-    <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 flex items-center gap-4 bg-black bg-opacity-80 p-3 rounded-lg w-[90%] max-w-[600px]">
-    <ToggleAudioPublishingButton />
-    <ToggleVideoPublishingButton />
-    <CancelCallButton />
-  </div>
-  <SpeakingWhileMutedNotification />
-        <CallControls />
-      
+      <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 flex items-center gap-4 bg-black bg-opacity-80 p-3 rounded-lg w-[90%] max-w-[600px]">
+        <ToggleAudioPublishingButton />
+        <ToggleVideoPublishingButton />
+        <CancelCallButton />
+      </div>
+      <SpeakingWhileMutedNotification />
+      <CallControls />
     </StreamTheme>
   );
 };
 
 function HostMeeting() {
   return (
-    <StreamVideo client={client}>
-      <StreamCall call={call}>
-        <MyUILayout />
-      </StreamCall>
-    </StreamVideo>
+    <>
+      <div className=" border flex flex-col h-full border-black w-full">
+        <StreamVideo client={client}>
+          <StreamCall call={call}>
+            <MyUILayout />
+          </StreamCall>
+        </StreamVideo>
+      </div>
+    </>
   );
 }
 export default HostMeeting;
