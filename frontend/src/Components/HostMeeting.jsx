@@ -14,7 +14,6 @@ import {
   ToggleAudioPublishingButton,
   ToggleVideoPublishingButton,
 } from "@stream-io/video-react-sdk";
-
 import { ParticipantView } from "@stream-io/video-react-sdk";
 import PropTypes from "prop-types";
 
@@ -42,6 +41,8 @@ const MyUILayout = () => {
   if (callingState !== CallingState.JOINED) {
     return <div>Loading...</div>;
   }
+  
+
 
   return (
     <StreamTheme>
