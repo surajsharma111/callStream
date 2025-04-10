@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { FaVideo } from "react-icons/fa6";
 import { signIn } from "../action/auth.js";
@@ -24,15 +24,21 @@ function SignIn() {
   const onSubmit = async (data) => {
     
       const response = await signIn(data);
-      
+      const result = await response.json();
+
       if(response.ok){
-        const {success} = await response.json(); // Await the JSON response
+        const {success} = result
         console.log({success})
         setSuccessMessage("You have successfully signed-in");
         navigate('/dashboard')
       
 
       }
+      const {error} = result
+      console.log({error})
+      if (error?.messages?.length) {
+        alert(error.messages[0]);
+      } 
      
     
       
