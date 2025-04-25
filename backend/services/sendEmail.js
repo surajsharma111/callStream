@@ -9,6 +9,7 @@ if (!process.env.SENDGRID_API_KEY) {
 
 export async function sendOTP(data) {
     try {
+
         const msg = {
             to: data.email,
             from: process.env.FROM_EMAIL, 
