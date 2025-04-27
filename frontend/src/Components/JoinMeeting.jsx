@@ -1,39 +1,59 @@
-import "@stream-io/video-react-sdk/dist/css/styles.css";
 import {
   CallControls,
+  CallingState,
+  SpeakerLayout,
   StreamCall,
   StreamTheme,
   StreamVideo,
   StreamVideoClient,
-  SpeakerLayout,
-} from "@stream-io/video-react-sdk";
+  useCallStateHooks,
 
-const apiKey = "mmhfdzb5evj2";
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3Byb250by5nZXRzdHJlYW0uaW8iLCJzdWIiOiJ1c2VyL0NhZF9CYW5lIiwidXNlcl9pZCI6IkNhZF9CYW5lIiwidmFsaWRpdHlfaW5fc2Vjb25kcyI6NjA0ODAwLCJpYXQiOjE3NDMzODA4MTQsImV4cCI6MTc0Mzk4NTYxNH0.Dubm9GnOCHiCMibma3xat8x9GFUzWgAPR3Lq1C9z8KE";
-const userId = "Cad_Bane";
-const callId = "dN7H0l1i7CnA";
+} from '@stream-io/video-react-sdk';
+
+import '@stream-io/video-react-sdk/dist/css/styles.css';
+import '..//../src/index.css';
+
+const apiKey = 'mmhfdzb5evj2';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3Byb250by5nZXRzdHJlYW0uaW8iLCJzdWIiOiJ1c2VyL0x1bWl5YSIsInVzZXJfaWQiOiJMdW1peWEiLCJ2YWxpZGl0eV9pbl9zZWNvbmRzIjo2MDQ4MDAsImlhdCI6MTc0NTcyNDU3MiwiZXhwIjoxNzQ2MzI5MzcyfQ.4JVaGCrWGxwEZ-f-6_bRY7sgon1Zrsd7u5th6SgQwQc';
+const userId = 'Lumiya';
+const callId = 'dOXw2WGEY3tz';
+
+const user = {
+  id: userId,
+  name: 'Suraj',
+  image: 'https://getstream.io/random_svg/?id=oliver&name=Oliver',
+};
+
+const client = new StreamVideoClient({ apiKey, user, token });
+const call = client.call('default', callId);
+call.join({ create: true });
 
 function JoinMeeting() {
-  const user = {
-    id: userId,
-    name: "Oliver",
-    image: "https://getstream.io/random_svg/?id=oliver&name=Oliver",
-  };
-
-  const client = new StreamVideoClient({ apiKey, user, token });
-  const call = client.call("default", callId);
-  call.join({ create: true });
-  // Assuming you have the 'client' and 'call' instance created
   return (
-    <StreamVideo client={client}>
-      <StreamTheme>
-        <StreamCall call={call}>
-          <SpeakerLayout />
-          <CallControls />
-        </StreamCall>
-      </StreamTheme>
-    </StreamVideo>
+    <>
+      <div className=" border flex flex-col h-full border-black w-full">
+        <StreamVideo client={client}>
+          <StreamCall call={call}>
+            <MyUILayout />
+          </StreamCall>
+        </StreamVideo>
+      </div>
+    </>
   );
 }
 export default JoinMeeting;
+export const MyUILayout = () => {
+  const { useCallCallingState } = useCallStateHooks();
+  const callingState = useCallCallingState();
+
+  if (callingState !== CallingState.JOINED) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <StreamTheme>
+      <SpeakerLayout participantsBarPosition='bottom' />
+      <CallControls />
+    </StreamTheme>
+  );
+};

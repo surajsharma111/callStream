@@ -2,9 +2,9 @@
 import sgMail from '@sendgrid/mail';
 import { da } from 'date-fns/locale';
 
-if (!process.env.SENDGRID_API_KEY) {
-    throw new Error('SENDGRID_API_KEY is missing.');
-  }
+// if (!process.env.SENDGRID_API_KEY) {
+//     throw new Error('SENDGRID_API_KEY is missing.');
+//   }
   sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 export async function sendOTP(data) {
